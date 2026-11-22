@@ -1,42 +1,120 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#10091f">
 <title>WHAT HAPPENS IF?</title>
 <style>
 *{box-sizing:border-box}
-body{margin:0;background:#10091f;color:white;font-family:Arial,sans-serif;min-height:100vh}
-header{padding:25px 8%;border-bottom:1px solid #302044}
-.logo{font-size:21px;font-weight:800;color:#c4a0ff}
-main{max-width:850px;margin:75px auto;padding:20px}
-h1{font-size:48px;margin-bottom:12px}
+body{margin:0;background:#10091f;color:#fff;font-family:Arial,sans-serif}
+header{padding:24px 7%;border-bottom:1px solid #302044}
+.logo{font-size:21px;font-weight:900;color:#c4a0ff}
+main{max-width:850px;margin:65px auto;padding:20px}
+.tag{color:#b58aff;font-size:12px;letter-spacing:3px;font-weight:bold}
+h1{font-size:clamp(38px,8vw,65px);margin:18px 0}
 h1 span{color:#b58aff}
-p{color:#b9aecb;line-height:1.6}
-input{width:100%;padding:18px;border-radius:12px;border:1px solid #684c91;background:#211633;color:white;font-size:16px;margin-top:25px}
-button{padding:16px 24px;border:0;border-radius:10px;background:#9860ee;color:white;font-weight:bold;margin-top:15px;cursor:pointer}
-#result{display:none;margin-top:30px;padding:25px;background:#211633;border:1px solid #684c91;border-radius:15px;line-height:1.7}
+.subtitle{color:#b9aecb;line-height:1.7}
+.search{display:flex;gap:10px;flex-wrap:wrap;margin-top:30px}
+input{flex:1;min-width:200px;padding:17px;border-radius:12px;border:1px solid #684c91;background:#211633;color:white;font-size:16px}
+button{padding:16px 23px;border:0;border-radius:10px;background:#9860ee;color:white;font-weight:bold;cursor:pointer}
+h2{font-size:23px}
+#result{display:none;margin-top:30px;padding:25px;background:#211633;border:1px solid #684c91;border-radius:15px;line-height:1.8}
+#suggestions{display:flex;flex-wrap:wrap;gap:10px;margin-top:20px}
+.suggestion{background:#25183a;border:1px solid #493367;padding:12px 15px;border-radius:20px;color:#d9c7f4;cursor:pointer}
 footer{text-align:center;color:#776b8c;padding:40px}
 </style>
 </head>
 <body>
 <header><div class="logo">✦ WHAT HAPPENS IF?</div></header>
 <main>
-<p>EXPLORE THE IMPOSSIBLE</p>
+<div class="tag">EXPLORE THE IMPOSSIBLE</div>
 <h1>What happens <span>if...</span></h1>
-<p>Ask a question. Discover a world of possibilities.</p>
+<p class="subtitle">One question can change the way you see the universe. Explore scientific possibilities and discover fascinating facts.</p>
+
+<div class="search">
 <input id="question" placeholder="What happens if the Moon disappears?">
-<button onclick="explore()">Explore possibility →</button>
+<button onclick="explore()">Explore →</button>
+</div>
+
+<h2>Explore popular questions</h2>
+<div id="suggestions">
+<button class="suggestion" onclick="ask('What if the Moon disappeared?')">🌙 Moon disappears</button>
+<button class="suggestion" onclick="ask('What if Earth stopped rotating?')">🌍 Earth stopped rotating</button>
+<button class="suggestion" onclick="ask('What if the Sun disappeared?')">☀️ Sun disappears</button>
+<button class="suggestion" onclick="ask('What if humans could fly?')">🪽 Humans could fly</button>
+<button class="suggestion" onclick="ask('What if all oceans disappeared?')">🌊 Oceans disappeared</button>
+<button class="suggestion" onclick="ask('What if gravity disappeared?')">🪐 No gravity</button>
+<button class="suggestion" onclick="ask('What if dinosaurs survived?')">🦖 Dinosaurs survived</button>
+<button class="suggestion" onclick="ask('What if Earth had two moons?')">🌕 Two moons</button>
+</div>
+
 <div id="result"></div>
 </main>
 <footer>WHAT HAPPENS IF? · Explore the unknown.</footer>
+
 <script>
+const answers=[
+{
+keys:["moon","luna"],
+title:"🌙 What if the Moon disappeared?",
+text:"The Moon plays an important role in Earth's oceans. Without it, tides would become much weaker, although the Sun would still create tides. Nights would also be darker, and many animal behaviors connected to moonlight could change."
+},
+{
+keys:["earth stopped rotating","earth stop rotating","rotation"],
+title:"🌍 What if Earth stopped rotating?",
+text:"Earth's rotation creates the regular cycle of day and night. If it stopped suddenly, the atmosphere and oceans would keep moving because of inertia, causing enormous disruption. If it slowed gradually, the length of days would change dramatically."
+},
+{
+keys:["sun disappeared","sun vanish","sun gone"],
+title:"☀️ What if the Sun disappeared?",
+text:"Earth would continue moving along its orbit briefly because gravity changes travel at the speed of light. Sunlight would stop reaching Earth about 8 minutes later. The planet would become dark and gradually cool. Photosynthesis would also stop."
+},
+{
+keys:["humans could fly","human fly","people could fly"],
+title:"🪽 What if humans could fly?",
+text:"If humans developed the ability to fly, transportation, sports, architecture and city planning could change. The exact effects would depend on how the ability worked, including energy needs, speed and safety."
+},
+{
+keys:["ocean","oceans","sea","seas"],
+title:"🌊 What if all oceans disappeared?",
+text:"The oceans regulate Earth's climate, support enormous ecosystems and power the water cycle. Without them, rainfall patterns would change dramatically, marine ecosystems would collapse and the planet would become much less suitable for life."
+},
+{
+keys:["gravity"],
+title:"🪐 What if gravity disappeared?",
+text:"Gravity keeps the atmosphere, oceans and people on Earth. Without Earth's gravity, objects would no longer be held to the ground, and the atmosphere would gradually disperse into space. This is a hypothetical scenario, not something that can happen naturally in this way."
+},
+{
+keys:["dinosaur","dinosaurs"],
+title:"🦖 What if dinosaurs survived?",
+text:"If some dinosaurs had survived the mass extinction 66 million years ago, ecosystems and evolution could have followed a very different path. Mammals might have developed differently, and human evolution as we know it might never have happened."
+},
+{
+keys:["two moons","2 moons"],
+title:"🌕 What if Earth had two moons?",
+text:"A second moon could change tides, night skies and the orbital dynamics of the Earth-Moon system. The effects would depend on the second moon's mass, distance and orbit."
+}
+];
+
+function ask(q){
+document.getElementById("question").value=q;
+explore();
+}
+
 function explore(){
-let q=document.getElementById('question').value.trim();
-if(!q){alert('Write a question first!');return;}
-let result=document.getElementById('result');
-result.style.display='block';
-result.innerHTML='<h2>Your question</h2><p>'+q.replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))+'</p><p>This is a fascinating scenario! Our scientific exploration engine is coming soon. Stay curious.</p>';
+const q=document.getElementById("question").value.trim().toLowerCase();
+if(!q){alert("Please enter a question!");return;}
+const result=document.getElementById("result");
+const answer=answers.find(item=>item.keys.some(key=>q.includes(key)));
+result.style.display="block";
+if(answer){
+result.innerHTML="<h2>"+answer.title+"</h2><p>"+answer.text+"</p><p><small>Scientific scenario · WHAT HAPPENS IF?</small></p>";
+}else{
+result.innerHTML="<h2>🔭 Interesting question!</h2><p>We don't have a verified explanation for this exact scenario in our current library yet. Try one of the popular questions above.</p>";
+}
+result.scrollIntoView({behavior:"smooth",block:"nearest"});
 }
 </script>
 </body>
