@@ -148,188 +148,81 @@ small{color:#b58aff}
 </footer>
 
 <script>
+const API_URL = "https://hello-ai.clasav278.workers.dev";
 
-const knowledge = [
-
-{
-keys:["moon","luna"],
-title:"🌙 What if the Moon disappeared?",
-text:"The Moon helps create Earth's tides. Without it, tides would become weaker because the Sun would still influence the oceans. Nights would become darker, and Earth's rotation could change over very long periods."
-},
-
-{
-keys:["sun disappeared","sun vanish","sun gone"],
-title:"☀️ What if the Sun disappeared?",
-text:"Earth would continue moving in its orbit for a little while. About 8 minutes and 20 seconds after the Sun disappeared, its light would no longer reach Earth. Temperatures would gradually fall, and photosynthesis would stop."
-},
-
-{
-keys:["earth stopped rotating","earth stop rotating","earth stopped spinning"],
-title:"🌍 What if Earth stopped rotating?",
-text:"Earth's rotation creates the regular cycle of day and night. If it suddenly stopped, the atmosphere and oceans would continue moving because of inertia. The consequences would be catastrophic. If it slowed gradually, days and nights would become much longer."
-},
-
-{
-keys:["black hole","black holes"],
-title:"🕳️ What is a black hole?",
-text:"A black hole is a region of space where gravity is so strong that nothing, not even light, can escape from within its event horizon. Many form when massive stars collapse. Scientists detect them by observing their effects on nearby matter and light."
-},
-
-{
-keys:["dream","dreams","why do we dream"],
-title:"💭 Why do we dream?",
-text:"Dreams are experiences that happen during sleep. They are especially vivid during REM sleep. Scientists believe dreams may be connected to memory, emotions and the brain processing information, although their exact purpose is still being studied."
-},
-
-{
-keys:["gravity"],
-title:"🪐 What is gravity?",
-text:"Gravity is the force of attraction between objects with mass. Earth's gravity keeps us on the ground and holds the Moon in orbit. Gravity also helps form stars, planets and galaxies."
-},
-
-{
-keys:["ocean","oceans","sea","seas","how deep"],
-title:"🌊 How deep is the ocean?",
-text:"The average ocean depth is approximately 3,688 metres. The deepest known point is Challenger Deep in the Mariana Trench, at roughly 10,900 metres. That is deeper than Mount Everest is tall."
-},
-
-{
-keys:["dinosaur","dinosaurs"],
-title:"🦖 What if dinosaurs survived?",
-text:"If some dinosaurs had survived the mass extinction around 66 million years ago, Earth's ecosystems could have developed very differently. Mammals might have evolved along different paths, and human history as we know it might never have happened."
-},
-
-{
-keys:["mars","red planet"],
-title:"🚀 Can humans live on Mars?",
-text:"Mars has some resources that could support future human missions, but it is a difficult place to live. Its atmosphere is very thin, temperatures are cold, and radiation levels are higher than on Earth. Humans would need protected habitats, oxygen and reliable supplies."
-},
-
-{
-keys:["sky blue","why is the sky blue","blue sky"],
-title:"🔵 Why is the sky blue?",
-text:"Sunlight contains many colours. Earth's atmosphere scatters shorter blue wavelengths more strongly than longer red wavelengths. This process is called Rayleigh scattering, which makes the daytime sky appear blue."
-},
-
-{
-keys:["volcano","volcanoes"],
-title:"🌋 How do volcanoes work?",
-text:"Volcanoes form where molten rock, gases and other materials from inside Earth reach the surface. Some erupt gently with flowing lava, while others produce explosive eruptions. Their behaviour depends on magma composition, gas content and other geological conditions."
-},
-
-{
-keys:["earthquake","earthquakes"],
-title:"🌎 Why do earthquakes happen?",
-text:"Earthquakes happen when stress builds up in rocks and is suddenly released, often along faults. This releases energy that travels through Earth as seismic waves."
-},
-
-{
-keys:["lightning","thunder"],
-title:"⚡ How does lightning work?",
-text:"Lightning is a powerful electrical discharge. It happens when electrical charges build up in clouds or between clouds and the ground. Thunder is the sound produced when lightning rapidly heats the surrounding air."
-},
-
-{
-keys:["oxygen","breathe"],
-title:"🫁 Why do humans need oxygen?",
-text:"Your cells use oxygen during cellular respiration to release energy from nutrients. This energy powers important activities such as movement, growth and maintaining body functions."
-},
-
-{
-keys:["time travel","travel through time"],
-title:"⏳ Is time travel possible?",
-text:"According to Einstein's theory of relativity, time can pass at different rates depending on speed and gravity. This means a person travelling very fast could experience less time than someone on Earth. Travelling backwards in time remains speculative."
-},
-
-{
-keys:["universe","big bang"],
-title:"🌌 How did the universe begin?",
-text:"The leading scientific model says the universe expanded from an extremely hot, dense early state around 13.8 billion years ago. This event is called the Big Bang. The universe is still expanding today."
-},
-
-{
-keys:["stars","star"],
-title:"⭐ How are stars born?",
-text:"Stars form inside large clouds of gas and dust. Gravity pulls material together until the centre becomes hot and dense enough for nuclear fusion to begin. This process releases enormous amounts of energy."
-},
-
-{
-keys:["rainbow"],
-title:"🌈 How do rainbows form?",
-text:"Rainbows form when sunlight enters water droplets, bends, reflects inside them and separates into different colours. This process is called dispersion."
-},
-
-{
-keys:["human fly","humans fly","people fly"],
-title:"🪽 What if humans could fly?",
-text:"If humans could fly naturally, transport, sports and city design could change dramatically. The exact effects would depend on how the ability worked, including energy requirements, speed and safety."
-},
-
-{
-keys:["two moons","2 moons"],
-title:"🌕 What if Earth had two moons?",
-text:"A second moon could change ocean tides and the appearance of the night sky. Its effects would depend on its size, distance and orbit. The gravitational interaction between the moons could also affect orbital stability."
-},
-
-{
-keys:["robux","roblox"],
-title:"🎮 How does Roblox pay creators?",
-text:"Roblox does not pay players simply for owning or buying Robux. Eligible creators can earn Robux through their experiences and other creator activities. Some eligible creators can exchange earned Robux through the Developer Exchange program, subject to Roblox's rules and requirements."
+async function ask(question) {
+  document.getElementById("question").value = question;
+  await explore();
 }
 
-];
+async function explore() {
+  const input = document.getElementById("question");
+  const button = document.querySelector(".search button");
+  const question = input.value.trim();
+  const result = document.getElementById("result");
 
-function ask(q){
- document.getElementById("question").value=q;
- explore();
+  if (!question) {
+    alert("Please enter a question!");
+    return;
+  }
+
+  result.style.display = "block";
+  result.replaceChildren();
+
+  const title = document.createElement("h2");
+  const paragraph = document.createElement("p");
+  const label = document.createElement("small");
+
+  title.textContent = "🔭 Thinking...";
+  paragraph.textContent = "Finding an answer to your question.";
+  label.textContent = "WHAT HAPPENS IF? · AI";
+  result.append(title, paragraph, label);
+  result.scrollIntoView({ behavior: "smooth", block: "nearest" });
+
+  button.disabled = true;
+  button.textContent = "Thinking...";
+
+  try {
+    const response = await fetch(API_URL, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ question })
+    });
+
+    const data = await response.json();
+
+    if (!response.ok) {
+      throw new Error(data.error || "The AI request failed.");
+    }
+
+    const answer =
+      data?.choices?.[0]?.message?.content ||
+      data?.response ||
+      data?.result ||
+      "";
+
+    if (!answer) {
+      throw new Error("The AI returned an empty answer. Please try again.");
+    }
+
+    title.textContent = "✨ Here's what happens";
+    paragraph.textContent = answer;
+    label.textContent = "WHAT HAPPENS IF? · Powered by AI";
+  } catch (error) {
+    title.textContent = "⚠️ We couldn't get an answer";
+    paragraph.textContent = error.message.includes("Failed to fetch")
+      ? "The connection to the AI is blocked or unavailable. Please try again later."
+      : error.message;
+    label.textContent = "WHAT HAPPENS IF? · Connection notice";
+  } finally {
+    button.disabled = false;
+    button.textContent = "Explore →";
+  }
 }
 
-function explore(){
-
- const input=document.getElementById("question");
- const q=input.value.trim().toLowerCase();
-
- if(!q){
-  alert("Please enter a question!");
-  return;
- }
-
- const result=document.getElementById("result");
-
- const answer=knowledge.find(item =>
-  item.keys.some(key=>q.includes(key))
- );
-
- result.style.display="block";
- result.replaceChildren();
-
- const title=document.createElement("h2");
- const paragraph=document.createElement("p");
- const label=document.createElement("small");
-
- if(answer){
-
-  title.textContent=answer.title;
-  paragraph.textContent=answer.text;
-  label.textContent="WHAT HAPPENS IF? · Knowledge Library";
-
- }else{
-
-  title.textContent="🔭 Interesting question!";
-  paragraph.textContent="We don't have a verified answer for this question in our current knowledge library yet. Try asking about space, science, nature, the human body or technology.";
-  label.textContent="More topics are coming soon.";
-
- }
-
- result.append(title,paragraph,label);
- result.scrollIntoView({behavior:"smooth",block:"nearest"});
-
-}
-
-document.getElementById("question").addEventListener("keydown",function(e){
- if(e.key==="Enter") explore();
+document.getElementById("question").addEventListener("keydown", function(event) {
+  if (event.key === "Enter") explore();
 });
-
 </script>
 
 </body>
