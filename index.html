@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>WHAT HAPPENS IF?</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;background:#10091f;color:white;font-family:Arial,sans-serif;min-height:100vh}
+header{padding:25px 8%;border-bottom:1px solid #302044}
+.logo{font-size:21px;font-weight:800;color:#c4a0ff}
+main{max-width:850px;margin:75px auto;padding:20px}
+h1{font-size:48px;margin-bottom:12px}
+h1 span{color:#b58aff}
+p{color:#b9aecb;line-height:1.6}
+input{width:100%;padding:18px;border-radius:12px;border:1px solid #684c91;background:#211633;color:white;font-size:16px;margin-top:25px}
+button{padding:16px 24px;border:0;border-radius:10px;background:#9860ee;color:white;font-weight:bold;margin-top:15px;cursor:pointer}
+#result{display:none;margin-top:30px;padding:25px;background:#211633;border:1px solid #684c91;border-radius:15px;line-height:1.7}
+footer{text-align:center;color:#776b8c;padding:40px}
+</style>
+</head>
+<body>
+<header><div class="logo">✦ WHAT HAPPENS IF?</div></header>
+<main>
+<p>EXPLORE THE IMPOSSIBLE</p>
+<h1>What happens <span>if...</span></h1>
+<p>Ask a question. Discover a world of possibilities.</p>
+<input id="question" placeholder="What happens if the Moon disappears?">
+<button onclick="explore()">Explore possibility →</button>
+<div id="result"></div>
+</main>
+<footer>WHAT HAPPENS IF? · Explore the unknown.</footer>
+<script>
+function explore(){
+let q=document.getElementById('question').value.trim();
+if(!q){alert('Write a question first!');return;}
+let result=document.getElementById('result');
+result.style.display='block';
+result.innerHTML='<h2>Your question</h2><p>'+q.replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))+'</p><p>This is a fascinating scenario! Our scientific exploration engine is coming soon. Stay curious.</p>';
+}
+</script>
+</body>
+</html>
